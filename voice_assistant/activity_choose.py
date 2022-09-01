@@ -32,10 +32,14 @@ def activity_choose(i):
         print()
     elif 'song' in i and 'play' in i:
         print(i)
-        str1='I will play a song'
+        str1='I will play the song'
+        song1="vdomusic.mp3"
+        if 'immortals' in i:
+            str1='Playing immortals from big hero 6'
+            song1="vdomusic1.mp3"
         print(str1)
         say_it(str1)
-        playsound("vdomusic.mp3")
+        playsound(song1)
         print()
     elif 'how are you' in i:
         print(i)

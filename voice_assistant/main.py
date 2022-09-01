@@ -4,6 +4,7 @@ import json
 from itertools import chain
 import speech_recognition as sr
 from playsound import playsound
+import os
 
 from text2speech import *
 from speech2text import *
@@ -33,7 +34,7 @@ while not shutdown_1:
     else:
         str1=HearMe()
         print(str1)
-        if str1=='stop':
+        if 'stop' in str1:
             break
         activity_choose(str1)
 
