@@ -18,7 +18,7 @@ def activity_choose(i):
         now = datetime.datetime.now().strftime('%c')
         date_str = now.split(' ')
         print(date_str)
-        str1='The date is '+date_str[1]+' '+date_str[2]+' '+date_str[4]
+        str1='The date is '+date_str[1]+' '+date_str[3]+' '+date_str[5]
         print(str1)
         say_it(str1)
         print()
@@ -45,4 +45,31 @@ def activity_choose(i):
         print()
     elif 'who are you' in i:
         print(i)
-        str1='Hi I am Bay max'
+        str1='Hi I am Bay max, your healthcare companion'
+        print(str1)
+        say_it(str1)
+        print()
+    elif 'good morning' in i:
+        print(i)
+        str1='Good morning. Have a nice day'
+        print(str1)
+        say_it(str1)
+        print()
+    elif 'good afternoon' in i:
+        print(i)
+        str1='Good afternoon. Have a nice day'
+        print(str1)
+        say_it(str1)
+        print()
+    elif 'good evening' in i:
+        print(i)
+        str1='Good evening. Hope you had a nice day'
+        print(str1)
+        say_it(str1)
+        print()
+    elif 'good night' in i:
+        print(i)
+        str1='Good night. Sleep well.'
+        print(str1)
+        say_it(str1)
+        print()
