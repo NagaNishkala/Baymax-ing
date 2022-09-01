@@ -2,44 +2,33 @@ import pyttsx3
 import datetime
 import json
 from itertools import chain
-import speech_recognition as sr
 import sys
 
-r = sr.Recognizer()
-
-def SpeakText(command):
+def say_it(str1):
     if sys.platform == 'win32':
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
         engine.setProperty('voice', voices[1].id)
         rate = engine.getProperty('rate')
         engine.setProperty('rate',rate-50)
-        engine.say(command)
+        engine.say(str1)
         engine.runAndWait()
 
     elif sys.platform == 'Linux' or sys.platform == 'linux' or sys.platform == 'Ubuntu':
         tts_engine = 'espeak'
-        print("Baymax: " + ' ' + message + '')
-        return os.system(tts_engine + ' "' + message + '"')
+        print("Baymax: " + ' ' + str1 + '')
+        return os.system(tts_engine + ' "' + str1 + '"')
 
-def HearMe():
-    try:
-        with sr.Microphone() as source2:
-            print('Speak')
-            r.adjust_for_ambient_noise(source2, duration=0.2)
-            audio2 = r.listen(source2,10,5)
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
-            
-            #print("Did you say "+MyText)
-            #SpeakText(MyText)
-            return MyText
+def greetings(name):
+    str1='Hello, I am Bay max, your personal healthcare companion.'
+    say_it(str1)
+    now = datetime.datetime.now()
+    today12pm = datetime.datetime(2009,12,31,12,00,00,00)
+    today4pm = datetime.datetime(2009,12,31,16,00,00,00)
 
-    except sr.RequestError as e:
-        print("Could not request results; {0}".format(e))
-        return 'request not processed'
-
-    except sr.UnknownValueError:
-        print("unknown error occured")
-        SpeakText("I am unable to process the sentence, please repeat")
-        return 'please repeat'
+    if now.time()<today12pm.time():
+        say_it('Good morning,'+name)
+    elif now.time()>=today12pm.time() and now.time()<today4pm.time():
+        say_it('Good afternoon,'+name)
+    elif now.time()>=today4pm.time():
+        say_it('Good evening,'+name)

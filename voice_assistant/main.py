@@ -10,7 +10,6 @@ from speech2text import *
 from dataloader1 import *
 from activity_choose import *
 
-
 Flag_greet=True
 shutdown_1=False
 

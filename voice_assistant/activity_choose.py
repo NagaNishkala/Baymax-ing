@@ -43,3 +43,6 @@ def activity_choose(i):
         print(str1)
         say_it(str1)
         print()
+    elif 'who are you' in i:
+        print(i)
+        str1='Hi I am Bay max'

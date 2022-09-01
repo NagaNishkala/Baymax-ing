@@ -3,17 +3,24 @@ import datetime
 import json
 from itertools import chain
 import speech_recognition as sr
+import sys
 
 r = sr.Recognizer()
 
 def SpeakText(command):
-    engine = pyttsx3.init()
-    voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)
-    rate = engine.getProperty('rate')
-    engine.setProperty('rate',rate-50)
-    engine.say(command)
-    engine.runAndWait()
+    if sys.platform == 'win32':
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[1].id)
+        rate = engine.getProperty('rate')
+        engine.setProperty('rate',rate-50)
+        engine.say(command)
+        engine.runAndWait()
+
+    elif sys.platform == 'Linux' or sys.platform == 'linux' or sys.platform == 'Ubuntu':
+        tts_engine = 'espeak'
+        print("Baymax: " + ' ' + command + '')
+        return os.system(tts_engine + ' "' + command + '"')
 
 def HearMe():
     try:
