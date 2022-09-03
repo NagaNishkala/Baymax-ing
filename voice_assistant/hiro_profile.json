@@ -13,5 +13,8 @@
     "Breakfast":"9:30",
     "Lunch":"14:00",
     "Snacks":"18:00",
-    "Dinner":"21:00"
+    "Dinner":"21:00",
+    "Doctor1":"Dr Tadashi Hamada",
+    "Doctor2":"Dr Fred Jones",
+    "Ward":"1"
 }
