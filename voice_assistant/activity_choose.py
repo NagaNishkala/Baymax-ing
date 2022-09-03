@@ -13,15 +13,17 @@ def activity_choose(i):
         print(str1)
         say_it(str1)
         print()
+        return None
     elif 'date' in i:
         print(i)
         now = datetime.datetime.now().strftime('%c')
         date_str = now.split(' ')
         print(date_str)
-        str1='The date is '+date_str[1]+' '+date_str[3]+' '+date_str[5]
+        str1='The date is '+date_str[1]+' '+date_str[2]+' '+date_str[4]
         print(str1)
         say_it(str1)
         print()
+        return None
     elif 'day' in i:
         print(i)
         now = datetime.datetime.now().strftime('%c')
@@ -30,6 +32,7 @@ def activity_choose(i):
         print(str1)
         say_it(str1)
         print()
+        return None
     elif 'song' in i and 'play' in i:
         print(i)
         str1='I will play the song'
@@ -47,12 +50,14 @@ def activity_choose(i):
         print(str1)
         say_it(str1)
         print()
+        return None
     elif 'who are you' in i:
         print(i)
-        str1='Hi I am Bay max, your healthcare companion'
+        str1='Hi I am Bay max'
         print(str1)
         say_it(str1)
         print()
+        return None
     elif 'good morning' in i:
         print(i)
         str1='Good morning. Have a nice day'
@@ -77,3 +82,16 @@ def activity_choose(i):
         print(str1)
         say_it(str1)
         print()
+    elif 'take me' in i:
+        if 'cafe' in i or 'restaurant' in i:
+            print('Going to cafeteria')
+            return [0,0,0]
+        elif 'ward' in i:
+            print('Going to ward')
+            return [1,1,1]
+        elif 'washroom' in i or 'restroom' in i:
+            print('Going to washroom')
+            return [2,2,2]
+        elif 'doctor' in i:
+            print('Going to doctor cabin')
+            return [3,3,3]
