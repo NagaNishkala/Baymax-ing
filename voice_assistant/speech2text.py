@@ -4,7 +4,6 @@ import json
 from itertools import chain
 import speech_recognition as sr
 import sys
-import os
 
 r = sr.Recognizer()
 
@@ -21,7 +20,7 @@ def SpeakText(command):
     elif sys.platform == 'Linux' or sys.platform == 'linux' or sys.platform == 'Ubuntu':
         tts_engine = 'espeak'
         print("Baymax: " + ' ' + command + '')
-        return os.system(tts_engine +' -v mb-en1 '+' "' + command + '"')
+        return os.system(tts_engine + ' "' + command + '"')
 
 def HearMe():
     try:

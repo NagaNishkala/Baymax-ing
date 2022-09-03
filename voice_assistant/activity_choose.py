@@ -5,7 +5,20 @@ import os
 from playsound import playsound
 from text2speech import *
 
-def activity_choose(i):
+def activity_choose(i,json_name_profile):
+    json_name='locations_set.json'
+    f=open(json_name)
+    data=json.load(f)
+    f.close()
+
+    f1=open(json_name_profile)
+    data1=json.load(f1)
+    f1.close()    
+
+    f2=open('doctor_status.json')
+    data2=json.load(f2)
+    f2.close()
+
     if 'time' in i:
         print(i)
         now = datetime.datetime.now().strftime('%H:%M:%S')
@@ -85,13 +98,30 @@ def activity_choose(i):
     elif 'take me' in i:
         if 'cafe' in i or 'restaurant' in i:
             print('Going to cafeteria')
-            return [0,0,0]
-        elif 'ward' in i:
+            a1=data['Cafeteria']
+            return a1
+        elif 'my room' in i:
             print('Going to ward')
-            return [1,1,1]
+            wardno=data1['Ward']
+            a1=data['Ward'][wardno]
+            return a1
         elif 'washroom' in i or 'restroom' in i:
             print('Going to washroom')
-            return [2,2,2]
+            wardno="Ward"+data1['Ward']
+            a1=data['Washroom'][wardno]
+            return a1
         elif 'doctor' in i:
             print('Going to doctor cabin')
-            return [3,3,3]
+            doc1=data1['Doctor1']
+            doc2=data1['Doctor2']
+            doc1_stat=data2[doc1]
+            doc2_stat=data2[doc2]
+            print('doc1:',doc1,doc1_stat)
+            print('doc2:',doc2,doc2_stat)
+            if doc1_stat=='Free':
+                return data['Cabin'][doc1]
+            elif doc2_stat=='Free':
+                return data['Cabin'][doc2]
+            else:
+                print('Doctors busy, calling nurse')
+                return None
