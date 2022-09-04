@@ -26,7 +26,7 @@ def activity_choose(i,json_name_profile):
         print(str1)
         say_it(str1)
         print()
-        return None
+        return [None]
     elif 'date' in i:
         print(i)
         now = datetime.datetime.now().strftime('%c')
@@ -36,7 +36,7 @@ def activity_choose(i,json_name_profile):
         print(str1)
         say_it(str1)
         print()
-        return None
+        return [None]
     elif 'day' in i:
         print(i)
         now = datetime.datetime.now().strftime('%c')
@@ -45,7 +45,7 @@ def activity_choose(i,json_name_profile):
         print(str1)
         say_it(str1)
         print()
-        return None
+        return [None]
     elif 'song' in i and 'play' in i:
         print(i)
         str1='I will play the song'
@@ -63,14 +63,14 @@ def activity_choose(i,json_name_profile):
         print(str1)
         say_it(str1)
         print()
-        return None
+        return [None]
     elif 'who are you' in i:
         print(i)
         str1='Hi I am Bay max'
         print(str1)
         say_it(str1)
         print()
-        return None
+        return [None]
     elif 'good morning' in i:
         print(i)
         str1='Good morning. Have a nice day'
@@ -124,4 +124,4 @@ def activity_choose(i,json_name_profile):
                 return data['Cabin'][doc2]
             else:
                 print('Doctors busy, calling nurse')
-                return None
+                return [None]

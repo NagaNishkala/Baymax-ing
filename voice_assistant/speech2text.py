@@ -4,6 +4,7 @@ import json
 from itertools import chain
 import speech_recognition as sr
 import sys
+import os
 
 r = sr.Recognizer()
 

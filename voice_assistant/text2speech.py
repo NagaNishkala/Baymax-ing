@@ -3,6 +3,7 @@ import datetime
 import json
 from itertools import chain
 import sys
+import os
 
 def say_it(str1):
     if sys.platform == 'win32':
