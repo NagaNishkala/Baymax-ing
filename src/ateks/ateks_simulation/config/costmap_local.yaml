@@ -1,0 +1,10 @@
+global_frame: ateks0_tf/odom
+rolling_window: true
+track_unknown_space: false
+width: 15
+height: 15
+static_map: false
+
+plugins:
+  - {name: obstacles_laser,           type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation,                 type: "costmap_2d::InflationLayer"}

@@ -1,0 +1,20 @@
+{
+    "Name": "Hiro",
+    "Age": "17",
+    "Gender": "Male",
+    "Medicines":
+    {
+        "ABC":{"Mode":"Syrup","Time":"BD","BAF":"B"},
+        "DEF":{"Mode":"Tablet","Time":"BLD","BAF":"A"},
+        "GHI":{"Mode":"Tablet","Time":"17:40","BAF":"A"},
+        "JKL":{"Mode":"Tablet","Time":"16:25","BAF":"B"},
+        "MNO":{"Mode":"Syrup","Time":"15:25","BAF":"A"}
+    },
+    "Breakfast":"9:30",
+    "Lunch":"14:00",
+    "Snacks":"18:00",
+    "Dinner":"21:00",
+    "Doctor1":"DrTadashiHamada",
+    "Doctor2":"DrFredJones",
+    "Ward":"1"
+}

@@ -1,0 +1,111 @@
+<?xml version='1.0'?>
+<launch>
+
+   	<arg name="model" value="$(find ateks_description)/urdf/ateks_noetic.urdf"/>
+  	<arg name="x_pos" default="0.0"/>
+  	<arg name="y_pos" default="0.0"/>
+  	<arg name="z_pos" default="0.0"/>
+	
+  	<arg name="x_pos1" default="13.0"/>
+  	<arg name="y_pos1" default="-1.0"/>
+  	<arg name="z_pos1" default="0.0"/>
+
+	<!-- We resume the logic in gazebo_ros package empty_world.launch, changing only the name of the world to be launched -->
+	<!--<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	   <arg name="world_name" value="$(find ateks_simulation)/worlds/empty.world"/>
+	   <arg name="paused" default="false"/>
+	   <arg name="use_sim_time" default="true"/>
+	   <arg name="gui" default="true"/>
+	   <arg name="headless" default="false"/>
+	   <arg name="debug" default="false"/>
+	</include>-->
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find my_worlds)/worlds/office.world"/>
+    </include>
+	
+	<!-- Joint State Publisher -->
+	<!--<node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>-->
+
+	<group ns = "ateks0">
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find ateks_description)/urdf/ateks_noetic.urdf" />
+		<param name="tf_prefix" value="ateks0_tf" />
+
+		<node pkg="gazebo_ros" type="spawn_model" name="ateks_spawn" args="-urdf -param robot_description -model ateks0 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) " />
+
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+			<param name="publish_frequency" type="double" value="50.0" />
+			<param name="tf_prefix" value="ateks0_tf" />
+		</node>
+	</group>
+
+	<group ns = "ateks1">
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find ateks_description)/urdf/ateks_noetic.urdf" />
+		<param name="tf_prefix" value="ateks1_tf" />
+
+		<node pkg="gazebo_ros" type="spawn_model" name="ateks_spawn" args="-urdf -param robot_description -model ateks1 -x $(arg x_pos1) -y $(arg y_pos1) -z $(arg z_pos1) " />
+
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+			<param name="publish_frequency" type="double" value="50.0" />
+			<param name="tf_prefix" value="ateks1_tf" />
+		</node>
+	</group>
+
+	<arg name="odom_topic" default="/ateks0/odom"/>
+    <arg name="scan_topic" default="/ateks0/laser" />
+    <arg name="base_global" default="global_planner/GlobalPlanner"/>
+    <arg name="base_local" default="dwa_local_planner/DWAPlannerROS"/>
+
+    <arg name="odom_frame" default="/ateks0_tf/odom"/>
+    <arg name="base_frame" default="/ateks0_tf/base_link"/>
+    <arg name="map_frame" default="/map0"/>
+    
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <remap from="odom" to="/ateks0/odom" />
+        <remap from="cmd_vel" to="/ateks0/cmd_vel" />
+
+        <param name="base_global_planner" value="$(arg base_global)"/>
+        <param name="base_local_planner" value="$(arg base_local)"/>
+
+        <rosparam file="$(find ateks_simulation)/config/global_planner.yaml" command="load"/>
+        <rosparam file="$(find ateks_simulation)/config/local_planner.yaml" command="load"/>
+
+        <rosparam file="$(find ateks_simulation)/config/costmap.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find ateks_simulation)/config/costmap.yaml" command="load" ns="local_costmap" />
+
+        <rosparam file="$(find ateks_simulation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+
+        <rosparam file="$(find ateks_simulation)/config/costmap_global.yaml" command="load" ns="global_costmap" />
+    </node>
+
+   <!-- Start only rviz -->
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ateks_simulation)/rviz/urdf.rviz" required="true"/> 
+
+  <!-- Gmapping -->
+	 <group ns = "ateks0">
+  <arg name="set_base_frame" default="base_footprint"/>
+  <arg name="set_odom_frame" default="odom"/>
+  <arg name="set_map_frame"  default="map"/>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping_0" output="screen">
+    <param name="base_frame" value="ateks0_tf/base_footprint"/>
+    <param name="odom_frame" value="ateks0_tf/odom"/>
+    <param name="map_frame"  value="/map0"/>
+	<remap from="scan"   to="laser"/>
+  </node>
+ </group>
+
+ <!--<group ns = "ateks1">
+  <arg name="set_base_frame" default="base_footprint"/>
+  <arg name="set_odom_frame" default="odom"/>
+  <arg name="set_map_frame"  default="map"/>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping_0" output="screen">
+    <param name="base_frame" value="ateks1_tf/base_footprint"/>
+    <param name="odom_frame" value="ateks1_tf/odom"/>
+    <param name="map_frame"  value="/map1"/>
+	<remap from="scan"   to="laser"/>
+  </node>
+ </group>-->
+
+</launch>
