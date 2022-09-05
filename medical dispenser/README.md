@@ -1,3 +1,3 @@
-MedDis_LiquidDispenser : Liquid dispensing unit
-MedDis_Nebulizer : Nebulizer container
-MedDis_TabletDispenser : Tablet dispenser
+1. MedDis_LiquidDispenser : Liquid dispensing unit
+2. MedDis_Nebulizer : Nebulizer container
+3. MedDis_TabletDispenser : Tablet dispenser
